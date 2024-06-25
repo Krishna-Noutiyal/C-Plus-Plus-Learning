@@ -10,7 +10,7 @@ int __cdecl main(int _Argc,char **_Argv,char **_Env)
   double local_80; // Science
   double local_78; // Maths
   double local_70; // English
-  basic_string local_68 [32];
+  basic_string local_68 [32]; // name
   allocator local_48 [32]; 
   double local_28; // Percentage
   undefined4 local_20; // Max Marks
