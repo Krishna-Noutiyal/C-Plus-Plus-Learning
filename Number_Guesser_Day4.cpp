@@ -33,10 +33,13 @@ int main()
         cout << "Guess the number ( 1-" << n << " ) : ";
         cin >> num;
         diff = abs(num - guess);
+        cin.clear();
+        fflush(stdin);
+
 
         if (num == guess)
         {
-            cout << "\n\n\t\T************* YOU WIN *************" << endl;
+            cout << "\n\n\t\t************* YOU WIN *************" << endl;
             cout << "\n\t\tIt took you " << tries << " tries to guess number " << guess << "\n\n" << endl;
             break;
         }
@@ -64,6 +67,9 @@ int main()
         else if (num > guess)
         {
             cout << "Very HIGH !!" << endl;
+        }
+        else{
+            cout << "Invalid Input" << endl;
         }
 
         tries++;
