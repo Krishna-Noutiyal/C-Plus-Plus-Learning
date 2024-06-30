@@ -35,17 +35,7 @@ I track my learning progress through various projects and exercises. Here are so
 
 ## 🤝 Contributing
 
-If you'd like to contribute, feel free to fork the repository and submit a pull request. I appreciate any feedback, suggestions, or improvements!
+If you'd like to contribute, feel free to fix the repository and submit a pull request. I appreciate any feedback, suggestions, or improvements!
 
-## 📬 Contact
-
-Have any questions or want to connect? Reach out to me via [email@example.com](mailto:email@example.com) or follow me on [GitHub](https://github.com/username).
-
----
-
-By following my C++ learning journey, you'll witness my growth as a programmer and hopefully find some useful insights and inspiration for your own projects. Happy coding! 😊
-
----
-
-Feel free to customize any section further to better suit your needs!
+Feel free to customize any section further to suit your needs better!
 
