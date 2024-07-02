@@ -4,13 +4,56 @@ using namespace std;
 double sum(double arr[], int size);
 
 int *randarr(int n_elements);
+void find();
+void fill_elements();
 
 int main()
 {
 
+    fill_elements();
     string arr[] = {"Krishna", "Gauri", "Lucky", "Shibbu"};
 
     double marks[] = {15, 45, 95, 57, 65, 55};
+
+    // size = sizeof(marks) / sizeof(double);
+
+    // cout << (char)sum(marks, size(marks)) << endl;
+
+    // int l = size(arr);
+    // cout << l << endl;
+    // Iterating using for loop
+    // for (int i = 0; i < size(arr); i++)
+    // {
+    //     cout << arr[i] << endl;
+    // }
+
+    // Iterating using for each loop
+
+    // for (string s : arr){
+    //     cout << s << endl;
+    // }
+
+    return 0;
+}
+
+
+void fill_elements(){
+
+    string team[100];
+    int s = size(team);
+    int d = 4;
+
+    fill(team, team + s/d, "Red Team");
+    fill(team + s / d, team + (s/d)*2, "Blue Team");
+    fill(team + (s / d)*2, team + s, "Dev-Ops");
+
+    for (int i = 0; !team[i].empty();i++)
+    {
+        cout << i << " : " <<team[i] << endl;
+    }
+}
+
+void find(){
 
     // Can't add the array as a pointer
     // pointer to an array
@@ -27,12 +70,10 @@ int main()
         n_number[i] = rand() % 10000;
     }
 
-
     // Size of n_number array
     int size = sizeof(n_number) / sizeof(int);
 
     // cout << "Last element of n_numer : " << n_number[1000] << endl;
-
 
     // for (int i: n_number){
     //     cout << i << endl;
@@ -70,27 +111,8 @@ int main()
         cin >> q;
 
     } while (q != 1);
-
-    // size = sizeof(marks) / sizeof(double);
-
-    // cout << (char)sum(marks, size(marks)) << endl;
-
-    // int l = size(arr);
-    // cout << l << endl;
-    // Iterating using for loop
-    // for (int i = 0; i < size(arr); i++)
-    // {
-    //     cout << arr[i] << endl;
-    // }
-
-    // Iterating using for each loop
-
-    // for (string s : arr){
-    //     cout << s << endl;
-    // }
-
-    return 0;
 }
+
 
 double sum(double arr[], int size)
 {
