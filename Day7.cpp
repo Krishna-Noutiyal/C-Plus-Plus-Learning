@@ -7,10 +7,17 @@ int *randarr(int n_elements);
 void find();
 void fill_elements();
 
+void The_const(const string (&ary)[],const double (&ary2)[]){
+
+    cout << &ary << endl;
+    cout << &ary2 << endl;
+    // cout << sizeof(ary) << endl;
+    // cout << sizeof(ary2) << endl;
+}
+
 int main()
 {
 
-    fill_elements();
     string arr[] = {"Krishna", "Gauri", "Lucky", "Shibbu"};
 
     double marks[] = {15, 45, 95, 57, 65, 55};
@@ -33,6 +40,13 @@ int main()
     //     cout << s << endl;
     // }
 
+
+    // fill_elements();
+
+    cout << &arr << endl;
+    cout << &marks << endl;
+
+    The_const(arr, marks);
     return 0;
 }
 
