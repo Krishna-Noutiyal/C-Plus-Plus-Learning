@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <limits.h>
 
 using namespace std;
 
@@ -10,6 +12,9 @@ int CheckWinner(int *Boxes_Array);
 int UserInput(int BoxNumber, int *Boxes_Array, string *Board_Array);
 int ComputerTurn(int *Boxes_Array);
 int GameInfo();
+int Minimax(int *Boxes_Array, int depth, bool isMaximizing);
+int Evaluate(int *Boxes_Array);
+vector<int> GetAvailableMoves(int *Boxes_Array);
 
 char player_symbol = 'X';
 int tiee = 0;
@@ -24,7 +29,6 @@ string Board[] = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
 
 int main()
 {
-
     int turn = 0;  // 1 = Player , 0 = Computer
     bool quit = 0; // 0 mean continue 1 means exit
     int box;       // Box the user is going to select
@@ -132,7 +136,6 @@ int main()
 
         GameInfo();
 
-        
         cout << "\nWant to Play another Round (1: Continue, 0: Exit) : ";
         cin >> quit;
 
@@ -254,8 +257,6 @@ bool CheckTie(int *Boxes_Array)
             return 0;
         }
     }
-
-    cout << "\n\t!!! TIE !!!" << endl;
     tiee = 1;
     return 1;
 }
@@ -283,21 +284,13 @@ int CheckWinner(int *Boxes_Array)
     int column2 = (b2 == b5 && b5 == b8) ? b8 : 0;
     int column3 = (b3 == b6 && b6 == b9) ? b9 : 0;
 
-    int diagonal1 = (b3 == b5 && b5 == b7) ? b7 : 0;
-    int diagonal2 = (b1 == b5 && b5 == b9) ? b9 : 0;
+    int diagonal1 = (b1 == b5 && b5 == b9) ? b9 : 0;
+    int diagonal2 = (b3 == b5 && b5 == b7) ? b7 : 0;
 
-    int tests[] = {row1,
-                   row2,
-                   row3,
-                   column1,
-                   column2,
-                   column3,
-                   diagonal1,
-                   diagonal2};
+    int tests[] = {row1, row2, row3, column1, column2, column3, diagonal1, diagonal2};
 
     for (int i : tests)
     {
-
         if (i != 0)
         {
             return i;
@@ -306,24 +299,97 @@ int CheckWinner(int *Boxes_Array)
     return 0;
 }
 
-// Check for empty boxes left 
-// Chooses a random box
-int ComputerTurn(int *Boxes_Array){
+// Check for empty boxes left
+// Chooses the best box using Minimax algorithm
+int ComputerTurn(int *Boxes_Array)
+{
+    int bestScore = INT_MIN;
+    int move = -1;
 
+    for (int i = 0; i < 9; i++)
+    {
+        if (Boxes_Array[i] == 0)
+        {
+            Boxes_Array[i] = 2;
+            int score = Minimax(Boxes_Array, 0, false);
+            Boxes_Array[i] = 0;
 
-    srand(time(NULL));
-
-    while (true){
-        int randum = rand() % 9;
-
-        if (Boxes_Array[randum] != 0){
-            continue;
+            if (score > bestScore)
+            {
+                bestScore = score;
+                move = i;
+            }
         }
-
-        Boxes_Array[randum] = 2;
-        break;
     }
 
+    if (move != -1)
+    {
+        Boxes_Array[move] = 2;
+    }
 
     return 0;
+}
+
+// Minimax algorithm to determine the best move
+int Minimax(int *Boxes_Array, int depth, bool isMaximizing)
+{
+    int result = CheckWinner(Boxes_Array);
+
+    if (result != 0)
+    {
+        return (result == 2) ? 10 - depth : depth - 10;
+    }
+    if (CheckTie(Boxes_Array))
+    {
+        return 0;
+    }
+
+    if (isMaximizing)
+    {
+        int bestScore = INT_MIN;
+
+        for (int i = 0; i < 9; i++)
+        {
+            if (Boxes_Array[i] == 0)
+            {
+                Boxes_Array[i] = 2;
+                int score = Minimax(Boxes_Array, depth + 1, false);
+                Boxes_Array[i] = 0;
+                bestScore = max(score, bestScore);
+            }
+        }
+        return bestScore;
+    }
+    else
+    {
+        int bestScore = INT_MAX;
+
+        for (int i = 0; i < 9; i++)
+        {
+            if (Boxes_Array[i] == 0)
+            {
+                Boxes_Array[i] = 1;
+                int score = Minimax(Boxes_Array, depth + 1, true);
+                Boxes_Array[i] = 0;
+                bestScore = min(score, bestScore);
+            }
+        }
+        return bestScore;
+    }
+}
+
+// Returns a list of available moves
+vector<int> GetAvailableMoves(int *Boxes_Array)
+{
+    vector<int> moves;
+
+    for (int i = 0; i < 9; i++)
+    {
+        if (Boxes_Array[i] == 0)
+        {
+            moves.push_back(i);
+        }
+    }
+
+    return moves;
 }

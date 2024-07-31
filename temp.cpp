@@ -3,24 +3,17 @@
 
 using namespace std;
 
-void test(string ar[]){
-    cout << ar << endl;
-    cout << &ar << endl;
-    cout << *ar << endl;
-}
+
+
 int main(){
-    string ar[] = {"Krishna", "Gauri", "Ishika", "Rishu", "Chirag"};
-    int a = 5;
 
-    cout << a << endl;
-    cout << &a << endl;
-    cout << *&a << endl;
+    srand(time(NULL));
 
+    for (int i = 0; i < 100; i++)
+    {
 
-    cout << ar << endl;
-    cout << &ar << endl;
-    cout << *ar << endl;
+        cout << rand() % 9<< endl;
+    }
 
-    test(ar);
-    return 0;
+            return 0;
 }
