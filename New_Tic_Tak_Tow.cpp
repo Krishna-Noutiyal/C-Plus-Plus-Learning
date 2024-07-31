@@ -4,12 +4,17 @@
 
 using namespace std;
 
+/*
+This version of the game addes the MinMax algorithm
+to determine the best move. You can't win :)
+
+*/
+
 int Msg();
 int DrawBoard(string *Board_Array);
 int BoxArrayToBoardArray(int *Boxes_Array, string *Board_Array);
 bool CheckTie(int *Boxes_Array);
 int CheckWinner(int *Boxes_Array);
-int UserInput(int BoxNumber, int *Boxes_Array, string *Board_Array);
 int ComputerTurn(int *Boxes_Array);
 int GameInfo();
 int Minimax(int *Boxes_Array, int depth, bool isMaximizing);
@@ -50,8 +55,11 @@ int main()
         // Resets Win
         win = 0;
 
+        //Resets the tiee flag
+        tiee = 0;
+
         // Switching the first turn
-        (turn == 1) ? turn = 0 : turn = 1;
+        //(turn == 1) ? turn = 0 : turn = 1;
 
         // Resets the Boxes every round
         for (int i = 0; i < 9; i++)
@@ -155,7 +163,7 @@ int GameInfo()
     cout << "Computer Win : " << cwin << endl;
     cout << "No of Ties : " << ntie << endl;
 
-    double WinPercent = ((double)pwin / ((double)rounds - (double)ntie)) * 100;
+    double WinPercent = (rounds - ntie ==0) ? 0: ((double)pwin / (double)(rounds - ntie)) * 100;
     cout << "\n\tYOU WON " << WinPercent << "\% OF THE TIME";
 
     return 0;
@@ -337,6 +345,10 @@ int Minimax(int *Boxes_Array, int depth, bool isMaximizing)
 
     if (result != 0)
     {
+        // Reward is Decreasing with depth
+        // This means the reward will be positive if computer is able to win till depth 10 is reached
+        // After that it will be negative So this means the MinMax algorithm makes sure the computer is able to win
+        // as soon as possible by negetivly rewarding the turn that exceed certain depth
         return (result == 2) ? 10 - depth : depth - 10;
     }
     if (CheckTie(Boxes_Array))
@@ -344,6 +356,7 @@ int Minimax(int *Boxes_Array, int depth, bool isMaximizing)
         return 0;
     }
 
+    // Maximizing ( Computer's maximizing move )
     if (isMaximizing)
     {
         int bestScore = INT_MIN;
@@ -360,6 +373,8 @@ int Minimax(int *Boxes_Array, int depth, bool isMaximizing)
         }
         return bestScore;
     }
+
+    // Minimizing ( Player's maximizing move )
     else
     {
         int bestScore = INT_MAX;
