@@ -19,8 +19,6 @@ int ComputerTurn(int *Boxes_Array);
 int GameInfo();
 int Minimax(int *Boxes_Array, int depth, bool isMaximizing);
 int Evaluate(int *Boxes_Array);
-vector<int> GetAvailableMoves(int *Boxes_Array);
-
 char player_symbol = 'X';
 int tiee = 0;
 int win = 0;   // 0 = No Winner, 1: Player Won, 2: Computer Won
@@ -391,20 +389,4 @@ int Minimax(int *Boxes_Array, int depth, bool isMaximizing)
         }
         return bestScore;
     }
-}
-
-// Returns a list of available moves
-vector<int> GetAvailableMoves(int *Boxes_Array)
-{
-    vector<int> moves;
-
-    for (int i = 0; i < 9; i++)
-    {
-        if (Boxes_Array[i] == 0)
-        {
-            moves.push_back(i);
-        }
-    }
-
-    return moves;
 }
