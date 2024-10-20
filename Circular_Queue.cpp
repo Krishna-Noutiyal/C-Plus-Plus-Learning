@@ -32,17 +32,15 @@ void Cqueue::insert(int value){
 
     else if (front ==-1){
         front = rear = 0;
-        arr[rear] = value;
     }
 
     else if (rear == size-1 && front !=0){
         rear = 0;
-        arr[rear] = value;
     }
     else{
         rear++;
-        arr[rear] = value;
     }
+    arr[rear] = value;
 };
 
 int Cqueue::remove(){
